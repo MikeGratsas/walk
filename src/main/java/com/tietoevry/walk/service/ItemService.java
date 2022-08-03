@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tietoevry.walk.entity.Item;
@@ -25,7 +27,6 @@ import com.tietoevry.walk.repository.MeasuringUnitRepository;
 import com.tietoevry.walk.repository.RuleRepository;
 
 @Service
-@Transactional
 public class ItemService {
 
     @Autowired
@@ -37,8 +38,8 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public List<ItemModel> listItems() {
-    	final List<Item> itemList = (List<Item>)itemRepository.findAll();
+    public List<ItemModel> listItems(final Pageable pageable) {
+    	final Page<Item> itemList = itemRepository.findAll(pageable);
         return itemList.stream().map(ItemService::assembleItemModel).collect(Collectors.toList());
     }
 
@@ -112,11 +113,12 @@ public class ItemService {
         }
     }
 
-    public List<ItemModel> findByMeasuringUnitName(final String name) {
-    	final List<Item> itemList = (List<Item>)itemRepository.findByMeasuringUnitName(name);
+    public List<ItemModel> findByMeasuringUnitName(final String name, final Pageable pageable) {
+    	final List<Item> itemList = (List<Item>)itemRepository.findByMeasuringUnitName(name, pageable);
         return itemList.stream().map(ItemService::assembleItemModel).collect(Collectors.toList());
     }
 
+    @Transactional
     public List<ItemRuleModel> listRules(Long id) throws ItemNotFoundException {
     	final Optional<Item> itemEntity = itemRepository.findById(id);
         if (!itemEntity.isPresent()) {
@@ -127,23 +129,26 @@ public class ItemService {
         return itemList.stream().map(ItemService::assembleItemRuleModel).collect(Collectors.toList());
     }
 
+    @Transactional
     public ItemRuleModel addRule(Long id, String ruleName, Double quantity) throws ItemNotFoundException, RuleNotFoundException {
-    	final Optional<Item> itemEntity = itemRepository.findById(id);
-        if (!itemEntity.isPresent()) {
+    	final Optional<Item> itemOptional = itemRepository.findById(id);
+        if (!itemOptional.isPresent()) {
             throw new ItemNotFoundException(id);
         }
-    	final Item item = itemEntity.get();
+    	final Item itemEntity = itemOptional.get();
     	final Optional<Rule> ruleOptional = ruleRepository.findByName(ruleName);
         if (!ruleOptional.isPresent()) {
             throw new RuleNotFoundException(ruleName);
         }
         final Rule ruleEntity = ruleOptional.get();                
         final RuleItem ruleItem = new RuleItem(ruleEntity, quantity);
-        item.addRule(ruleItem);
-        itemRepository.save(item);
-        return assembleItemRuleModel(ruleItem);
+        itemEntity.addRule(ruleItem);
+        Item item = itemRepository.save(itemEntity);
+        final Optional<RuleItem> ruleItemOptional = item.getItemRules().stream().filter(ir -> ruleEntity.equals(ir.getRule())).findFirst();
+        return ruleItemOptional.isPresent()? assembleItemRuleModel(ruleItemOptional.get()): null;
     }
 
+    @Transactional
     public void removeRule(Long id, Long itemRuleId) throws ItemNotFoundException, ItemRuleNotFoundException {
     	final Optional<Item> itemEntity = itemRepository.findById(id);
         if (!itemEntity.isPresent()) {
@@ -151,11 +156,9 @@ public class ItemService {
         }
     	final Item item = itemEntity.get();
     	final List<RuleItem> itemRules = item.getItemRules();
-		final Optional<RuleItem> ruleItemOptional = itemRules.stream().filter(ir -> ir.getId() == itemRuleId).findFirst();
-        if (!ruleItemOptional.isPresent()) {
+        if (!itemRules.removeIf(ir -> ir.getId() == itemRuleId)) {
             throw new ItemRuleNotFoundException(itemRuleId);
         }
-        itemRules.remove(ruleItemOptional.get());
         itemRepository.save(item);
     }
 

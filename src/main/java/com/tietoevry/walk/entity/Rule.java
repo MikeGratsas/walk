@@ -10,6 +10,7 @@ import com.tietoevry.walk.form.WalkModel;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -93,4 +94,18 @@ public class Rule implements ICheckRule {
 	public long check(WalkModel walk) {
 		return 1;
 	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+        	return true;
+        if (obj == null || getClass() != obj.getClass())
+        	return false;
+        final Rule other = (Rule) obj;
+        return Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

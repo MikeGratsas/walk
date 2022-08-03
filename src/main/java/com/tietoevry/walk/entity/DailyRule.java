@@ -4,30 +4,21 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import javax.persistence.MappedSuperclass;
-
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import com.tietoevry.walk.form.WalkModel;
 
-@MappedSuperclass
-public abstract class DayTimeRule extends DistanceRule {
+@Entity
+@DiscriminatorValue("daily")
+public class DailyRule extends SubjectRule {
 	
 	private static final long HOURS_PER_DAY = 24;
 
-	private boolean toEvery;
-
-	public DayTimeRule() {
+	public DailyRule() {
 	}
 
-	public DayTimeRule(String name) {
+	public DailyRule(String name) {
 		super(name);
-	}
-
-	public boolean isToEvery() {
-		return toEvery;
-	}
-
-	public void setToEvery(boolean toEvery) {
-		this.toEvery = toEvery;
 	}
 
 	@Override
@@ -48,13 +39,11 @@ public abstract class DayTimeRule extends DistanceRule {
 		if (startHour > finishHour) {
 			startHour -= HOURS_PER_DAY;
 		}
-		if (overlap(startHour, finishHour))
+		if (finishHour - startHour > HOURS_PER_DAY / 4)
 			days++;
 		if (days != 0) {
-			return toEvery? days * super.check(walk): super.check(walk);
+			return days * super.check(walk);
 		}
 		return 0;
 	}
-
-	protected abstract boolean overlap(int startHour, int finishHour);
 }

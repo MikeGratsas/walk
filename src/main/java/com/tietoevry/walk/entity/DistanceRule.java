@@ -33,8 +33,8 @@ public class DistanceRule extends SubjectRule {
 		if (walk == null)
 			return 0;
 		final Double walkDistance = walk.getDistance();
-		if (walkDistance != null) {
-			if (distance == null || distance > walkDistance)
+		if (walkDistance != null && distance != null) {
+			if (distance > walkDistance)
 				return 0;
 		}
 		return super.check(walk);

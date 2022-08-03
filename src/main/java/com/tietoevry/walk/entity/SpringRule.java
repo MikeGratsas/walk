@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("spring")
 public class SpringRule extends SeasonRule {
 
-	private static final int START_MONTH = 6;
-	private static final int FINISH_MONTH = 9;
+	private static final int START_MONTH = 3;
+	private static final int FINISH_MONTH = 6;
 
 	public SpringRule() {
 	}

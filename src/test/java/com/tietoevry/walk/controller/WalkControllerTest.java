@@ -74,7 +74,6 @@ class WalkControllerTest {
 		ResponseEntity<ItemModel> itemResponse = template.postForEntity(ITEMS_ENDPOINT, itemEntity, ItemModel.class);
 		Assertions.assertEquals(HttpStatus.CREATED, itemResponse.getStatusCode());
 		ItemModel itemBody = itemResponse.getBody();
-		final String itemName = itemBody.getName();
 		final Long itemId = itemBody.getId();
 		final LocalDateTime itemCreated = itemBody.getCreated();
 		final LocalDateTime itemLastUpdated = itemBody.getLastUpdated();
@@ -88,6 +87,7 @@ class WalkControllerTest {
 		Assertions.assertEquals("sandwich", itemBody.getName());
 		Assertions.assertEquals(itemCreated, itemBody.getCreated());
 		Assertions.assertTrue(itemLastUpdated.isBefore(itemBody.getLastUpdated()));
+		final String itemName = itemBody.getName();
 
 		itemResponse = template.getForEntity(ITEMS_ENDPOINT + "/findByName?name={name}", ItemModel.class, itemName);
 		Assertions.assertEquals(HttpStatus.OK, itemResponse.getStatusCode());
@@ -105,8 +105,9 @@ class WalkControllerTest {
 		walkEntity = getHttpEntity("{\"subjects\": {\"human\": 2, \"dog\": 1}, \"distance\": 100, \"start\": \"2022-07-31T08:38:50\", \"finish\": \"2022-08-01T21:34:00\" }");
 		walkResponse = template.exchange(PREPARE_ENDPOINT, HttpMethod.POST, walkEntity, typeReference);
 		Assertions.assertEquals(HttpStatus.OK, walkResponse.getStatusCode());
+		walkItemsBody = walkResponse.getBody();
 		Assertions.assertFalse(walkItemsBody.isEmpty());
-		Assertions.assertEquals(walkItemsSize + 2, itemsResponse.getBody().length);
+		Assertions.assertEquals(walkItemsSize + 1, walkItemsBody.size());
 		
 		template.delete("/api/items/{itemId}", itemId);
 		

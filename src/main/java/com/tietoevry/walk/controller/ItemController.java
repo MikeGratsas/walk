@@ -2,6 +2,7 @@ package com.tietoevry.walk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,15 +28,15 @@ public class ItemController {
     private ItemService itemService;
 
     @GetMapping("/items")
-    public ResponseEntity<List<ItemModel>> getItemList()
+    public ResponseEntity<List<ItemModel>> getItemList(final Pageable pageable)
     {
-        return ResponseEntity.ok(itemService.listItems());
+        return ResponseEntity.ok(itemService.listItems(pageable));
     }
 
     @GetMapping("/items/findByMeasuringUnitName")
-    public ResponseEntity<List<ItemModel>> findByMeasuringUnitName(@RequestParam final String name)
+    public ResponseEntity<List<ItemModel>> findByMeasuringUnitName(@RequestParam final String name, final Pageable pageable)
     {
-        return ResponseEntity.ok(itemService.findByMeasuringUnitName(name));
+        return ResponseEntity.ok(itemService.findByMeasuringUnitName(name, pageable));
     }
 
     @GetMapping("/items/findByName")

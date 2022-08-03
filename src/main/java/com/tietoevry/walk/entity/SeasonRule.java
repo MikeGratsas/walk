@@ -3,8 +3,12 @@ package com.tietoevry.walk.entity;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+
+import javax.persistence.MappedSuperclass;
+
 import com.tietoevry.walk.form.WalkModel;
 
+@MappedSuperclass
 public abstract class SeasonRule extends DistanceRule {
 	
 	private static final long MONTHS_PER_YEAR = 12;

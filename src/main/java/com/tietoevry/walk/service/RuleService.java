@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ import com.tietoevry.walk.repository.RuleRepository;
 import com.tietoevry.walk.repository.SubjectRepository;
 
 @Service
-@Transactional
 public class RuleService {
 
     @Autowired
@@ -37,6 +34,10 @@ public class RuleService {
 
     public RuleModel createSubjectRule(String name, Long subjectId, Long subjectCount) {
     	return addSubjectRule(new SubjectRule(name), subjectId, subjectCount);
+    }
+
+    public RuleModel createDailyRule(String name, Long subjectId, Long subjectCount) {
+    	return addSubjectRule(new DailyRule(name), subjectId, subjectCount);
     }
 
     public RuleModel createDistanceRule(String name, Long subjectId, Long subjectCount, Double distance) {

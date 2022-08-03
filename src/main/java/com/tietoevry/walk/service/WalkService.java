@@ -1,6 +1,7 @@
 package com.tietoevry.walk.service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class WalkService {
     private RuleRepository ruleRepository;
 
     public List<WalkItemModel> prepare(final WalkModel walk) {
-		List<WalkItemModel> walkItems = StreamSupport.stream(ruleRepository.findAll().spliterator(), false).flatMap(r -> processRule(r, walk).stream()).collect(Collectors.groupingBy(ItemQuantityModel::getItem, Collectors.summingDouble(ItemQuantityModel::getQuantity))).entrySet().stream().map(WalkService::assembleWalkItemModel).collect(Collectors.toList());
+		List<WalkItemModel> walkItems = StreamSupport.stream(ruleRepository.findAll().spliterator(), false).flatMap(r -> processRule(r, walk).stream()).collect(Collectors.groupingBy(ItemQuantityModel::getItem, Collectors.summingDouble(ItemQuantityModel::getQuantity))).entrySet().stream().map(WalkService::assembleWalkItemModel).sorted(Comparator.comparingLong(WalkItemModel::getId)).collect(Collectors.toList());
 		return walkItems; 
 	}
     
