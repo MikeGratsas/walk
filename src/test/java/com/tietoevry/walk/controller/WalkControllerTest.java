@@ -64,7 +64,8 @@ class WalkControllerTest {
 		
 		ResponseEntity<ItemModel[]> itemsResponse = template.getForEntity(ITEMS_ENDPOINT, ItemModel[].class);
 		Assertions.assertEquals(HttpStatus.OK, itemsResponse.getStatusCode());
-		Assertions.assertEquals(16, itemsResponse.getBody().length);
+		final int itemsLength = itemsResponse.getBody().length;
+		Assertions.assertFalse(itemsLength == 0);
 		
 		itemsResponse = template.getForEntity(ITEMS_ENDPOINT + "/findByMeasuringUnitName?name={name}", ItemModel[].class, "kg");
 		Assertions.assertEquals(HttpStatus.OK, itemsResponse.getStatusCode());
@@ -96,7 +97,7 @@ class WalkControllerTest {
 		
 		itemsResponse = template.getForEntity(ITEMS_ENDPOINT, ItemModel[].class);
 		Assertions.assertEquals(HttpStatus.OK, itemsResponse.getStatusCode());
-		Assertions.assertEquals(17, itemsResponse.getBody().length);
+		Assertions.assertEquals(itemsLength + 1, itemsResponse.getBody().length);
 		
 		ResponseEntity<ItemRuleModel> itemRuleResponse = template.getForEntity(ITEMS_ENDPOINT + "/{itemId}/rules/add?rule={rule}&quantity={quantity}", ItemRuleModel.class, itemId, "evening", 1.0);
 		Assertions.assertEquals(HttpStatus.OK, itemRuleResponse.getStatusCode());

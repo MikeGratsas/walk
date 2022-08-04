@@ -32,6 +32,18 @@ public class RuleService {
         return addRule(new Rule(name));
     }
 
+    public RuleModel createMinRule(String name, RuleModel... ruleModels) {
+        final MinRule ruleEntity = new MinRule(name);
+        addSubRules(ruleEntity.getRules(), ruleModels);
+		return addRule(ruleEntity);
+    }
+
+    public RuleModel createMaxRule(String name, RuleModel... ruleModels) {
+        final MaxRule ruleEntity = new MaxRule(name);
+        addSubRules(ruleEntity.getRules(), ruleModels);
+		return addRule(ruleEntity);
+    }
+
     public RuleModel createSubjectRule(String name, Long subjectId, Long subjectCount) {
     	return addSubjectRule(new SubjectRule(name), subjectId, subjectCount);
     }
@@ -123,6 +135,15 @@ public class RuleService {
             ruleRepository.deleteById(id);
         }
     }
+
+	private void addSubRules(final List<Rule> rules, RuleModel... ruleModels) {
+        for (RuleModel ruleModel : ruleModels) {
+            Optional<Rule> ruleOptional = ruleRepository.findById(ruleModel.getId());
+            if (ruleOptional.isPresent()) {
+    			rules.add(ruleOptional.get());
+            }
+		}
+	}
 
 	private RuleModel addRule(Rule ruleEntity) {
 		Rule rule = ruleRepository.save(ruleEntity);

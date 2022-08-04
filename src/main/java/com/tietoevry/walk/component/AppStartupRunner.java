@@ -63,21 +63,26 @@ public class AppStartupRunner implements ApplicationRunner {
 		RuleModel evening = createEveningRuleIfNotFound("evening", human, 1L, 15.0, true);
 		RuleModel night = createNightRuleIfNotFound("night", human, 1L, 5.0, true);
 		RuleModel sleepover = createNightRuleIfNotFound("sleepover", human, 5L, 4.0, false);
+		RuleModel breakfast = createMorningRuleIfNotFound("breakfast", human, 1L, 20.0, false);
+		RuleModel lunch = createAfternoonRuleIfNotFound("lunch", human, 1L, 25.0, false);
+		RuleModel dinner = createEveningRuleIfNotFound("dinner", human, 1L, 15.0, false);
+		RuleModel min = createMinRuleIfNotFound("min", breakfast, lunch, dinner);
 
 		ItemModel map = createItemIfNotFound("map", unit, Arrays.asList(march), 1);
 		ItemModel backpack = createItemIfNotFound("backpack", unit, Arrays.asList(person), 1);
 		ItemModel hat = createItemIfNotFound("sun hat", unit, Arrays.asList(summer), 1);
 		ItemModel umbrella = createItemIfNotFound("umbrella", unit, Arrays.asList(autumn), 1);
 		ItemModel marquee = createItemIfNotFound("marquee", unit, Arrays.asList(sleepover), 1);
-		ItemModel spoon = createItemIfNotFound("spoon", unit, Arrays.asList(distance), 1);
+		ItemModel spoon = createItemIfNotFound("spoon", unit, Arrays.asList(min), 1);
 		ItemModel switchblade = createItemIfNotFound("switchblade", unit, Arrays.asList(people), 1);
 		ItemModel lighter = createItemIfNotFound("lighter", unit, Arrays.asList(people), 2);
-		ItemModel fuel = createItemIfNotFound("fuel", liter, Arrays.asList(distance), 1.5);
+		ItemModel camera = createItemIfNotFound("camera", unit, Arrays.asList(distance), 1);
+		ItemModel fuel = createItemIfNotFound("fuel", liter, Arrays.asList(night, winter), 1.5, 7.5);
 		ItemModel rope = createItemIfNotFound("rope", meter, Arrays.asList(people), 6);
 		ItemModel potatoes = createItemIfNotFound("potatoes", kilogram, Arrays.asList(afternoon), 0.9);
 		ItemModel stew = createItemIfNotFound("can of stew", unit, Arrays.asList(afternoon), 1);
 		ItemModel porridge = createItemIfNotFound("canned porridge", unit, Arrays.asList(morning), 1);
-		ItemModel tea = createItemIfNotFound("packet of tea", unit, Arrays.asList(morning, evening), 1);
+		ItemModel tea = createItemIfNotFound("packet of tea", unit, Arrays.asList(morning, evening), 1, 1);
 		ItemModel leash = createItemIfNotFound("leash", unit, Arrays.asList(canine), 1);
 		ItemModel dry = createItemIfNotFound("dry food", unit, Arrays.asList(daily), 2);
 	}
@@ -98,19 +103,22 @@ public class AppStartupRunner implements ApplicationRunner {
         return subjectModel;
     }
     
-    private ItemModel createItemIfNotFound(final String name, final MeasuringUnitModel measuringUnit, final List<RuleModel> rules, final double quantity) {
+    private ItemModel createItemIfNotFound(final String name, final MeasuringUnitModel measuringUnit, final List<RuleModel> rules, final double... quantity) {
     	ItemModel itemModel = itemService.findByName(name);
         if (itemModel == null) {
 			itemModel = itemService.createItem(new ItemModel(name, measuringUnit.getName()));
 			if (rules != null) {
+				int i = 0;
 				for (RuleModel rule: rules) {
 					try {
-						itemService.addRule(itemModel.getId(), rule.getName(), quantity);
-					} catch (ItemNotFoundException e) {
+						itemService.addRule(itemModel.getId(), rule.getName(), quantity[i++]);
+					}
+					catch (ItemNotFoundException e) {
 						LOGGER.warn(e.getMessage(), e);
-					} catch (RuleNotFoundException e) {
+					}
+					catch (RuleNotFoundException e) {
 						LOGGER.warn(e.getMessage(), e);
-					} 
+					}					
 				}
 			}
         }
@@ -209,6 +217,14 @@ public class AppStartupRunner implements ApplicationRunner {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createNightRule(name, subject.getId(), subjectCount, distance, toEvery);
+        }
+        return ruleModel;
+	}
+    
+	private RuleModel createMinRuleIfNotFound(final String name, final RuleModel... rules) {
+    	RuleModel ruleModel = ruleService.findByName(name);
+        if (ruleModel == null) {
+			ruleModel = ruleService.createMinRule(name, rules);
         }
         return ruleModel;
 	}

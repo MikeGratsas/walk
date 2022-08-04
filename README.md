@@ -15,7 +15,7 @@ Run using maven command:
 
 mvn spring-boot:run
 
-and access the page at the urls: http://localhost:8080/api/items
+and access the items endpoint: http://localhost:8080/api/items
 
 ```
 - (get) http://localhost:8080/api/items (get list of all items)
@@ -25,6 +25,18 @@ and access the page at the urls: http://localhost:8080/api/items
 - (delete) http://localhost:8080/api/items/17 (delete item info with id=17)
 ```
 
-To get list of items required to walk to a distance planned at the specified start and finish time for a determined number of humans and dogs perform POST request sending JSON info to the url:
+To get list of items needed to walk the planned distance at the specified start and end time for a certain number of humans and dogs execute a POST request by sending JSON data to the endpoint:
 
 http://localhost:8080/api/prepare
+
+```json
+{
+  "subjects": { "human": 2, "dog": 1 },
+  "distance": 100,
+  "start": "2022-07-31T08:38:50",
+  "finish": "2022-08-01T21:34:00"
+}
+```
+
+The rules are preconfigured for the application, but can be modified.
+
