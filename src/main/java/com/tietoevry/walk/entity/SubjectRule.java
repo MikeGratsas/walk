@@ -19,7 +19,7 @@ public class SubjectRule extends Rule {
 	public SubjectRule() {
 	}
 
-    public SubjectRule(String name) {
+    public SubjectRule(final String name) {
         super(name);
     }
 
@@ -27,7 +27,7 @@ public class SubjectRule extends Rule {
 		return subject;
 	}
 
-	public void setSubject(Subject subject) {
+	public void setSubject(final Subject subject) {
 		this.subject = subject;
 	}
 	
@@ -35,12 +35,12 @@ public class SubjectRule extends Rule {
 		return subjectCount;
 	}
 
-	public void setSubjectCount(Long subjectCount) {
+	public void setSubjectCount(final Long subjectCount) {
 		this.subjectCount = subjectCount;
 	}
 
 	@Override
-	public long check(WalkModel walk) {
+	public long check(final WalkModel walk) {
 		if (walk == null)
 			return 0;
 		final Map<String, Long> subjects = walk.getSubjects();

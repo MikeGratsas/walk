@@ -16,7 +16,7 @@ public class MeasuringUnit {
     public MeasuringUnit() {
     }
 
-    public MeasuringUnit(String name, String description) {
+    public MeasuringUnit(final String name, final String description) {
         this.name = name;
         this.description = description;
     }
@@ -25,7 +25,7 @@ public class MeasuringUnit {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class MeasuringUnit {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }

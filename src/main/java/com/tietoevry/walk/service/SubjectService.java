@@ -23,25 +23,25 @@ public class SubjectService {
         return subjectList.stream().map(SubjectService::assembleSubjectModel).collect(Collectors.toList());
     }
 
-    public SubjectModel createSubject(String name) {
-        Subject subjectEntity = new Subject();
+    public SubjectModel createSubject(final String name) {
+    	final Subject subjectEntity = new Subject();
         subjectEntity.setName(name);
-        Subject c = subjectRepository.save(subjectEntity);
-        return assembleSubjectModel(c);
+        Subject s = subjectRepository.save(subjectEntity);
+        return assembleSubjectModel(s);
     }
 
-    public SubjectModel createSubject(SubjectModel subjectModel) {
-        Subject subjectEntity = new Subject();
+    public SubjectModel createSubject(final SubjectModel subjectModel) {
+    	final Subject subjectEntity = new Subject();
         subjectEntity.setName(subjectModel.getName());
-        Subject c = subjectRepository.save(subjectEntity);
-        return assembleSubjectModel(c);
+        final Subject s = subjectRepository.save(subjectEntity);
+        return assembleSubjectModel(s);
     }
 
-    public SubjectModel saveSubject(SubjectModel subjectModel) throws SubjectNotFoundException {
+    public SubjectModel saveSubject(final SubjectModel subjectModel) throws SubjectNotFoundException {
         Subject subjectEntity;
-        Long id = subjectModel.getId();
+        final Long id = subjectModel.getId();
         if (id != null) {
-            Optional<Subject> subjectOptional = subjectRepository.findById(id);
+        	final Optional<Subject> subjectOptional = subjectRepository.findById(id);
             if (subjectOptional.isPresent()) {
                 subjectEntity = subjectOptional.get();
             }
@@ -53,37 +53,37 @@ public class SubjectService {
             subjectEntity = new Subject();
         }
         subjectEntity.setName(subjectModel.getName());
-        Subject c = subjectRepository.save(subjectEntity);
-        return assembleSubjectModel(c);
+        final Subject s = subjectRepository.save(subjectEntity);
+        return assembleSubjectModel(s);
     }
 
-    public SubjectModel findSubject(Long id) {
+    public SubjectModel findSubject(final Long id) {
         SubjectModel subjectModel = null;
-        Optional<Subject> subjectEntity = subjectRepository.findById(id);
+        final Optional<Subject> subjectEntity = subjectRepository.findById(id);
         if (subjectEntity.isPresent()) {
-            Subject mu = subjectEntity.get();
-            subjectModel = assembleSubjectModel(mu);
+            Subject s = subjectEntity.get();
+            subjectModel = assembleSubjectModel(s);
         }
         return subjectModel;
     }
 
-    public SubjectModel findByName(String name) {
+    public SubjectModel findByName(final String name) {
         SubjectModel subjectModel = null;
-        Optional<Subject> subjectEntity = subjectRepository.findByName(name);
+        final Optional<Subject> subjectEntity = subjectRepository.findByName(name);
         if (subjectEntity.isPresent()) {
-            Subject mu = subjectEntity.get();
-            subjectModel = assembleSubjectModel(mu);
+            Subject s = subjectEntity.get();
+            subjectModel = assembleSubjectModel(s);
         }
         return subjectModel;
     }
 
-    public void deleteSubjects(Long[] ids) {
+    public void deleteSubjects(final Long[] ids) {
         for (Long id: ids) {
             subjectRepository.deleteById(id);
         }
     }
 
-    private static SubjectModel assembleSubjectModel(Subject subjectEntity) {
+    private static SubjectModel assembleSubjectModel(final Subject subjectEntity) {
         return new SubjectModel(subjectEntity.getId(), subjectEntity.getName());
     }
 }

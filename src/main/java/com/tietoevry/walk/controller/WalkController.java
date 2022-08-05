@@ -21,7 +21,7 @@ public class WalkController {
 
     @PostMapping("/prepare")
 	public ResponseEntity<List<WalkItemModel>> prepare(@Valid @RequestBody final WalkModel walk) {
-		List<WalkItemModel> walkItems = walkService.prepare(walk);
+    	final List<WalkItemModel> walkItems = walkService.prepare(walk);
 		return ResponseEntity.ok(walkItems); 
 	}
 }

@@ -40,51 +40,51 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Override
 	public void run(ApplicationArguments args) throws Exception {
-    	MeasuringUnitModel unit = createMeasuringUnitIfNotFound("", "Unit");
-    	MeasuringUnitModel meter = createMeasuringUnitIfNotFound("m", "Meter");
-    	MeasuringUnitModel kilogram = createMeasuringUnitIfNotFound("kg", "Kilogram");
-    	MeasuringUnitModel liter = createMeasuringUnitIfNotFound("l", "Liter");
+    	final MeasuringUnitModel unit = createMeasuringUnitIfNotFound("", "Unit");
+    	final MeasuringUnitModel meter = createMeasuringUnitIfNotFound("m", "Meter");
+    	final MeasuringUnitModel kilogram = createMeasuringUnitIfNotFound("kg", "Kilogram");
+    	final MeasuringUnitModel liter = createMeasuringUnitIfNotFound("l", "Liter");
 
-    	SubjectModel human = createSubjectIfNotFound("human");
-    	SubjectModel dog = createSubjectIfNotFound("dog");
+    	final SubjectModel human = createSubjectIfNotFound("human");
+    	final SubjectModel dog = createSubjectIfNotFound("dog");
 		
-		RuleModel march = createRuleIfNotFound("march");
-		RuleModel people = createSubjectRuleIfNotFound("people", human, null);
-		RuleModel person = createSubjectRuleIfNotFound("person", human, 1L);
-		RuleModel canine = createSubjectRuleIfNotFound("canine", dog, 1L);
-		RuleModel daily = createDailyRuleIfNotFound("daily", dog, 1L);
-		RuleModel distance = createDistanceRuleIfNotFound("distance", human, 1L, 12.0);
-		RuleModel winter = createWinterRuleIfNotFound("winter", human, 1L);
-		RuleModel spring = createSpringRuleIfNotFound("spring", human, 1L);
-		RuleModel summer = createSummerRuleIfNotFound("summer", human, 1L);
-		RuleModel autumn = createAutumnRuleIfNotFound("autumn", human, 1L);
-		RuleModel morning = createMorningRuleIfNotFound("morning", human, 1L, 20.0, true);
-		RuleModel afternoon = createAfternoonRuleIfNotFound("afternoon", human, 1L, 25.0, true);
-		RuleModel evening = createEveningRuleIfNotFound("evening", human, 1L, 15.0, true);
-		RuleModel night = createNightRuleIfNotFound("night", human, 1L, 5.0, true);
-		RuleModel sleepover = createNightRuleIfNotFound("sleepover", human, 5L, 4.0, false);
-		RuleModel breakfast = createMorningRuleIfNotFound("breakfast", human, 1L, 20.0, false);
-		RuleModel lunch = createAfternoonRuleIfNotFound("lunch", human, 1L, 25.0, false);
-		RuleModel dinner = createEveningRuleIfNotFound("dinner", human, 1L, 15.0, false);
-		RuleModel min = createMinRuleIfNotFound("min", breakfast, lunch, dinner);
+    	final RuleModel march = createRuleIfNotFound("march");
+    	final RuleModel people = createSubjectRuleIfNotFound("people", human, null);
+    	final RuleModel person = createSubjectRuleIfNotFound("person", human, 1L);
+		final RuleModel canine = createSubjectRuleIfNotFound("canine", dog, 1L);
+		final RuleModel daily = createDailyRuleIfNotFound("daily", dog, 1L);
+		final RuleModel distance = createDistanceRuleIfNotFound("distance", human, 1L, 12.0);
+		final RuleModel winter = createWinterRuleIfNotFound("winter", human, 1L);
+		final RuleModel spring = createSpringRuleIfNotFound("spring", human, 1L);
+		final RuleModel summer = createSummerRuleIfNotFound("summer", human, 1L);
+		final RuleModel autumn = createAutumnRuleIfNotFound("autumn", human, 1L);
+		final RuleModel morning = createMorningRuleIfNotFound("morning", human, 1L, 20.0, true);
+		final RuleModel afternoon = createAfternoonRuleIfNotFound("afternoon", human, 1L, 25.0, true);
+		final RuleModel evening = createEveningRuleIfNotFound("evening", human, 1L, 15.0, true);
+		final RuleModel night = createNightRuleIfNotFound("night", human, 1L, 5.0, true);
+		final RuleModel sleepover = createNightRuleIfNotFound("sleepover", human, 5L, 4.0, false);
+		final RuleModel breakfast = createMorningRuleIfNotFound("breakfast", human, 1L, 20.0, false);
+		final RuleModel lunch = createAfternoonRuleIfNotFound("lunch", human, 1L, 25.0, false);
+		final RuleModel dinner = createEveningRuleIfNotFound("dinner", human, 1L, 15.0, false);
+		final RuleModel max = createMaxRuleIfNotFound("max", breakfast, lunch, dinner);
 
-		ItemModel map = createItemIfNotFound("map", unit, Arrays.asList(march), 1);
-		ItemModel backpack = createItemIfNotFound("backpack", unit, Arrays.asList(person), 1);
-		ItemModel hat = createItemIfNotFound("sun hat", unit, Arrays.asList(summer), 1);
-		ItemModel umbrella = createItemIfNotFound("umbrella", unit, Arrays.asList(autumn), 1);
-		ItemModel marquee = createItemIfNotFound("marquee", unit, Arrays.asList(sleepover), 1);
-		ItemModel spoon = createItemIfNotFound("spoon", unit, Arrays.asList(min), 1);
-		ItemModel switchblade = createItemIfNotFound("switchblade", unit, Arrays.asList(people), 1);
-		ItemModel lighter = createItemIfNotFound("lighter", unit, Arrays.asList(people), 2);
-		ItemModel camera = createItemIfNotFound("camera", unit, Arrays.asList(distance), 1);
-		ItemModel fuel = createItemIfNotFound("fuel", liter, Arrays.asList(night, winter), 1.5, 7.5);
-		ItemModel rope = createItemIfNotFound("rope", meter, Arrays.asList(people), 6);
-		ItemModel potatoes = createItemIfNotFound("potatoes", kilogram, Arrays.asList(afternoon), 0.9);
-		ItemModel stew = createItemIfNotFound("can of stew", unit, Arrays.asList(afternoon), 1);
-		ItemModel porridge = createItemIfNotFound("canned porridge", unit, Arrays.asList(morning), 1);
-		ItemModel tea = createItemIfNotFound("packet of tea", unit, Arrays.asList(morning, evening), 1, 1);
-		ItemModel leash = createItemIfNotFound("leash", unit, Arrays.asList(canine), 1);
-		ItemModel dry = createItemIfNotFound("dry food", unit, Arrays.asList(daily), 2);
+		final ItemModel map = createItemIfNotFound("map", unit, Arrays.asList(march), 1);
+		final ItemModel backpack = createItemIfNotFound("backpack", unit, Arrays.asList(person), 1);
+		final ItemModel hat = createItemIfNotFound("sun hat", unit, Arrays.asList(summer), 1);
+		final ItemModel umbrella = createItemIfNotFound("umbrella", unit, Arrays.asList(autumn), 1);
+		final ItemModel marquee = createItemIfNotFound("marquee", unit, Arrays.asList(sleepover), 1);
+		final ItemModel spoon = createItemIfNotFound("spoon", unit, Arrays.asList(max), 1);
+		final ItemModel switchblade = createItemIfNotFound("switchblade", unit, Arrays.asList(people), 1);
+		final ItemModel lighter = createItemIfNotFound("lighter", unit, Arrays.asList(people), 2);
+		final ItemModel camera = createItemIfNotFound("camera", unit, Arrays.asList(distance), 1);
+		final ItemModel fuel = createItemIfNotFound("fuel", liter, Arrays.asList(night, winter), 1.5, 7.5);
+		final ItemModel rope = createItemIfNotFound("rope", meter, Arrays.asList(people), 6);
+		final ItemModel potatoes = createItemIfNotFound("potatoes", kilogram, Arrays.asList(afternoon), 0.9);
+		final ItemModel stew = createItemIfNotFound("can of stew", unit, Arrays.asList(afternoon), 1);
+		final ItemModel porridge = createItemIfNotFound("canned porridge", unit, Arrays.asList(morning), 1);
+		final ItemModel tea = createItemIfNotFound("packet of tea", unit, Arrays.asList(morning, evening), 1, 1);
+		final ItemModel leash = createItemIfNotFound("leash", unit, Arrays.asList(canine), 1);
+		final ItemModel dry = createItemIfNotFound("dry food", unit, Arrays.asList(daily), 2);
 	}
 
 	private MeasuringUnitModel createMeasuringUnitIfNotFound(final String name, final String description) {
@@ -103,13 +103,13 @@ public class AppStartupRunner implements ApplicationRunner {
         return subjectModel;
     }
     
-    private ItemModel createItemIfNotFound(final String name, final MeasuringUnitModel measuringUnit, final List<RuleModel> rules, final double... quantity) {
+    private final ItemModel createItemIfNotFound(final String name, final MeasuringUnitModel measuringUnit, final List<RuleModel> rules, final double... quantity) {
     	ItemModel itemModel = itemService.findByName(name);
         if (itemModel == null) {
 			itemModel = itemService.createItem(new ItemModel(name, measuringUnit.getName()));
 			if (rules != null) {
 				int i = 0;
-				for (RuleModel rule: rules) {
+				for (final RuleModel rule: rules) {
 					try {
 						itemService.addRule(itemModel.getId(), rule.getName(), quantity[i++]);
 					}
@@ -125,7 +125,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return itemModel;
     }
     
-    private RuleModel createRuleIfNotFound(final String name) {
+    private final RuleModel createRuleIfNotFound(final String name) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createRule(name);
@@ -133,7 +133,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createDailyRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
+    private final RuleModel createDailyRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createDailyRule(name, subject.getId(), subjectCount);
@@ -141,7 +141,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createSubjectRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
+    private final RuleModel createSubjectRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createSubjectRule(name, subject.getId(), subjectCount);
@@ -149,7 +149,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createDistanceRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance) {
+    private final RuleModel createDistanceRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createDistanceRule(name, subject.getId(), subjectCount, distance);
@@ -157,7 +157,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createWinterRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
+    private final RuleModel createWinterRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createWinterRule(name, subject.getId(), subjectCount, null, false);
@@ -165,7 +165,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createSpringRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
+    private final RuleModel createSpringRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createSpringRule(name, subject.getId(), subjectCount, null, false);
@@ -173,7 +173,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createSummerRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
+    private final RuleModel createSummerRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createSummerRule(name, subject.getId(), subjectCount, null, false);
@@ -181,7 +181,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
     
-    private RuleModel createAutumnRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
+    private final RuleModel createAutumnRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createAutumnRule(name, subject.getId(), subjectCount, null, false);
@@ -189,7 +189,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
     }
 
-    private RuleModel createMorningRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
+    private final RuleModel createMorningRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createMorningRule(name, subject.getId(), subjectCount, distance, toEvery);
@@ -197,7 +197,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
 	}
 
-    private RuleModel createAfternoonRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
+    private final RuleModel createAfternoonRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createAfternoonRule(name, subject.getId(), subjectCount, distance, toEvery);
@@ -205,7 +205,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
 	}
 
-    private RuleModel createEveningRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
+    private final RuleModel createEveningRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createEveningRule(name, subject.getId(), subjectCount, distance, toEvery);
@@ -213,7 +213,7 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
 	}
 
-    private RuleModel createNightRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
+    private final RuleModel createNightRuleIfNotFound(final String name, final SubjectModel subject, final Long subjectCount, final Double distance, final boolean toEvery) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createNightRule(name, subject.getId(), subjectCount, distance, toEvery);
@@ -221,10 +221,18 @@ public class AppStartupRunner implements ApplicationRunner {
         return ruleModel;
 	}
     
-	private RuleModel createMinRuleIfNotFound(final String name, final RuleModel... rules) {
+	private final RuleModel createMinRuleIfNotFound(final String name, final RuleModel... rules) {
     	RuleModel ruleModel = ruleService.findByName(name);
         if (ruleModel == null) {
 			ruleModel = ruleService.createMinRule(name, rules);
+        }
+        return ruleModel;
+	}
+    
+	private final RuleModel createMaxRuleIfNotFound(final String name, final RuleModel... rules) {
+    	RuleModel ruleModel = ruleService.findByName(name);
+        if (ruleModel == null) {
+			ruleModel = ruleService.createMaxRule(name, rules);
         }
         return ruleModel;
 	}

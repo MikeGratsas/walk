@@ -19,32 +19,32 @@ public class MeasuringUnitService {
     private MeasuringUnitRepository measuringUnitRepository;
 
     public List<MeasuringUnitModel> listMeasuringUnits() {
-        List<MeasuringUnit> measuringUnitList = (List<MeasuringUnit>)measuringUnitRepository.findAll();
+    	final List<MeasuringUnit> measuringUnitList = (List<MeasuringUnit>)measuringUnitRepository.findAll();
         return measuringUnitList.stream().map(MeasuringUnitService::assembleMeasuringUnitModel).collect(Collectors.toList());
     }
 
-    public MeasuringUnitModel createMeasuringUnit(String name) {
-        MeasuringUnit measuringUnitEntity = new MeasuringUnit();
+    public MeasuringUnitModel createMeasuringUnit(final String name) {
+    	final MeasuringUnit measuringUnitEntity = new MeasuringUnit();
         measuringUnitEntity.setName(name);
-        MeasuringUnit c = measuringUnitRepository.save(measuringUnitEntity);
-        return assembleMeasuringUnitModel(c);
+        final MeasuringUnit mu = measuringUnitRepository.save(measuringUnitEntity);
+        return assembleMeasuringUnitModel(mu);
     }
 
-    public MeasuringUnitModel createMeasuringUnit(MeasuringUnitModel measuringUnitModel) {
+    public MeasuringUnitModel createMeasuringUnit(final MeasuringUnitModel measuringUnitModel) {
     	if (measuringUnitModel == null)
     		throw new IllegalArgumentException("measuringUnitModel");
-        MeasuringUnit measuringUnitEntity = new MeasuringUnit();
+    	final MeasuringUnit measuringUnitEntity = new MeasuringUnit();
         measuringUnitEntity.setName(measuringUnitModel.getName());
         measuringUnitEntity.setDescription(measuringUnitModel.getDescription());
-        MeasuringUnit c = measuringUnitRepository.save(measuringUnitEntity);
-        return assembleMeasuringUnitModel(c);
+        final MeasuringUnit mu = measuringUnitRepository.save(measuringUnitEntity);
+        return assembleMeasuringUnitModel(mu);
     }
 
-    public MeasuringUnitModel saveMeasuringUnit(MeasuringUnitModel measuringUnitModel) throws MeasuringUnitNotFoundException {
+    public MeasuringUnitModel saveMeasuringUnit(final MeasuringUnitModel measuringUnitModel) throws MeasuringUnitNotFoundException {
     	if (measuringUnitModel == null)
     		throw new IllegalArgumentException("measuringUnitModel");
         MeasuringUnit measuringUnitEntity;
-        Long id = measuringUnitModel.getId();
+        final Long id = measuringUnitModel.getId();
         if (id != null) {
             Optional<MeasuringUnit> measuringUnitOptional = measuringUnitRepository.findById(id);
             if (measuringUnitOptional.isPresent()) {
@@ -59,37 +59,37 @@ public class MeasuringUnitService {
         }
         measuringUnitEntity.setName(measuringUnitModel.getName());
         measuringUnitEntity.setDescription(measuringUnitModel.getDescription());
-        MeasuringUnit c = measuringUnitRepository.save(measuringUnitEntity);
-        return assembleMeasuringUnitModel(c);
+        final MeasuringUnit mu = measuringUnitRepository.save(measuringUnitEntity);
+        return assembleMeasuringUnitModel(mu);
     }
 
-    public MeasuringUnitModel findMeasuringUnit(Long id) {
+    public MeasuringUnitModel findMeasuringUnit(final Long id) {
         MeasuringUnitModel measuringUnitModel = null;
-        Optional<MeasuringUnit> measuringUnitEntity = measuringUnitRepository.findById(id);
+        final Optional<MeasuringUnit> measuringUnitEntity = measuringUnitRepository.findById(id);
         if (measuringUnitEntity.isPresent()) {
-            MeasuringUnit mu = measuringUnitEntity.get();
+        	final MeasuringUnit mu = measuringUnitEntity.get();
             measuringUnitModel = assembleMeasuringUnitModel(mu);
         }
         return measuringUnitModel;
     }
 
-    public MeasuringUnitModel findByName(String name) {
+    public MeasuringUnitModel findByName(final String name) {
         MeasuringUnitModel measuringUnitModel = null;
-        Optional<MeasuringUnit> measuringUnitEntity = measuringUnitRepository.findByName(name);
+        final Optional<MeasuringUnit> measuringUnitEntity = measuringUnitRepository.findByName(name);
         if (measuringUnitEntity.isPresent()) {
-            MeasuringUnit mu = measuringUnitEntity.get();
+        	final MeasuringUnit mu = measuringUnitEntity.get();
             measuringUnitModel = assembleMeasuringUnitModel(mu);
         }
         return measuringUnitModel;
     }
 
-    public void deleteMeasuringUnits(Long[] ids) {
+    public void deleteMeasuringUnits(final Long[] ids) {
         for (Long id: ids) {
             measuringUnitRepository.deleteById(id);
         }
     }
 
-    private static MeasuringUnitModel assembleMeasuringUnitModel(MeasuringUnit measuringUnitEntity) {
+    private static MeasuringUnitModel assembleMeasuringUnitModel(final MeasuringUnit measuringUnitEntity) {
         return new MeasuringUnitModel(measuringUnitEntity.getId(), measuringUnitEntity.getName(), measuringUnitEntity.getDescription());
     }
 }

@@ -13,12 +13,12 @@ public class WinterRule extends SeasonRule {
 	public WinterRule() {
 	}
 
-	public WinterRule(String name) {
+	public WinterRule(final String name) {
 		super(name);
 	}
 
 	@Override
-	protected boolean overlap(int startMonth, int finishMonth) {
+	protected boolean overlap(final int startMonth, final int finishMonth) {
 		return startMonth < FINISH_MONTH && finishMonth >= START_MONTH;
 	}
 }

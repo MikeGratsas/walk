@@ -16,7 +16,7 @@ public class WalkItemModel {
     public WalkItemModel() {
     }
 
-    public WalkItemModel(Long id, String name, String measuringUnit) {
+    public WalkItemModel(final Long id, final String name, final String measuringUnit) {
         this.id = id;
         this.name = name;
         this.measuringUnit = measuringUnit;
@@ -26,7 +26,7 @@ public class WalkItemModel {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -34,7 +34,7 @@ public class WalkItemModel {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -42,7 +42,7 @@ public class WalkItemModel {
 		return measuringUnit;
 	}
 
-	public void setMeasuringUnit(String measuringUnit) {
+	public void setMeasuringUnit(final String measuringUnit) {
 		this.measuringUnit = measuringUnit;
 	}
 
@@ -50,7 +50,7 @@ public class WalkItemModel {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(final Double quantity) {
 		this.quantity = quantity;
 	}
 }

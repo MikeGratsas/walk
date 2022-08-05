@@ -21,7 +21,7 @@ public class Rule implements ICheckRule {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 100)
 	private String name;
 
 	@OneToMany(mappedBy = "rule", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -36,7 +36,7 @@ public class Rule implements ICheckRule {
     public Rule() {
     }
 
-    public Rule(String name) {
+    public Rule(final String name) {
         this.name = name;
     }
 
@@ -44,7 +44,7 @@ public class Rule implements ICheckRule {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -52,7 +52,7 @@ public class Rule implements ICheckRule {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -60,7 +60,7 @@ public class Rule implements ICheckRule {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(final LocalDateTime created) {
         this.created = created;
     }
 
@@ -68,16 +68,16 @@ public class Rule implements ICheckRule {
         return lastUpdated;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
+    public void setLastUpdated(final LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
-    public void addItem(RuleItem item) {
+    public void addItem(final RuleItem item) {
 		items.add(item);
 		item.setRule(this);
 	}
 
-	public void removeItem(RuleItem item) {
+	public void removeItem(final RuleItem item) {
 		items.remove(item);
 		item.setRule(null);
 	}
@@ -86,14 +86,15 @@ public class Rule implements ICheckRule {
 		return items;
 	}
 
-	public void setItems(List<RuleItem> items) {
+	public void setItems(final List<RuleItem> items) {
 		this.items = items;
 	}
 
 	@Override
-	public long check(WalkModel walk) {
+	public long check(final WalkModel walk) {
 		return 1;
 	}
+	
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

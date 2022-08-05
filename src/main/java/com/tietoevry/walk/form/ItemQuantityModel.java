@@ -26,7 +26,7 @@ public class ItemQuantityModel implements Serializable {
     public ItemQuantityModel() {
     }
 
-    public ItemQuantityModel(Long id, ItemModel item, Double quantity) {
+    public ItemQuantityModel(final Long id, final ItemModel item, final Double quantity) {
         this.id = id;
         this.item = item;
         this.quantity = quantity;
@@ -36,7 +36,7 @@ public class ItemQuantityModel implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -44,7 +44,7 @@ public class ItemQuantityModel implements Serializable {
 		return item;
 	}
 
-	public void setItem(ItemModel item) {
+	public void setItem(final ItemModel item) {
 		this.item = item;
 	}
 
@@ -52,7 +52,7 @@ public class ItemQuantityModel implements Serializable {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(final Double quantity) {
 		this.quantity = quantity;
 	}
 
@@ -60,7 +60,7 @@ public class ItemQuantityModel implements Serializable {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -68,7 +68,7 @@ public class ItemQuantityModel implements Serializable {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
+	public void setLastUpdated(final LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 }

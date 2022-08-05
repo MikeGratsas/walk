@@ -22,7 +22,7 @@ public class DailyRule extends SubjectRule {
 	}
 
 	@Override
-	public long check(WalkModel walk) {
+	public long check(final WalkModel walk) {
 		if (walk == null)
 			return 0;
 		final LocalDateTime start = walk.getStart();

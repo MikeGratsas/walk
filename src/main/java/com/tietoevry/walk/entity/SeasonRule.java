@@ -18,7 +18,7 @@ public abstract class SeasonRule extends DistanceRule {
 	public SeasonRule() {
 	}
 
-	public SeasonRule(String name) {
+	public SeasonRule(final String name) {
 		super(name);
 	}
 
@@ -26,12 +26,12 @@ public abstract class SeasonRule extends DistanceRule {
 		return toEvery;
 	}
 
-	public void setToEvery(boolean toEvery) {
+	public void setToEvery(final boolean toEvery) {
 		this.toEvery = toEvery;
 	}
 
 	@Override
-	public long check(WalkModel walk) {
+	public long check(final WalkModel walk) {
 		if (walk == null)
 			return 0;
 		final LocalDateTime start = walk.getStart();
@@ -56,5 +56,5 @@ public abstract class SeasonRule extends DistanceRule {
 		return 0;
 	}
 
-	protected abstract boolean overlap(int startMonth, int finishMonth);
+	protected abstract boolean overlap(final int startMonth, final int finishMonth);
 }

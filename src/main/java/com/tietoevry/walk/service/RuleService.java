@@ -28,71 +28,71 @@ public class RuleService {
         return ruleList.stream().map(RuleService::assembleRuleModel).collect(Collectors.toList());
     }
 
-    public RuleModel createRule(String name) {
+    public RuleModel createRule(final String name) {
         return addRule(new Rule(name));
     }
 
-    public RuleModel createMinRule(String name, RuleModel... ruleModels) {
+    public RuleModel createMinRule(final String name, final RuleModel... ruleModels) {
         final MinRule ruleEntity = new MinRule(name);
         addSubRules(ruleEntity.getRules(), ruleModels);
 		return addRule(ruleEntity);
     }
 
-    public RuleModel createMaxRule(String name, RuleModel... ruleModels) {
+    public RuleModel createMaxRule(final String name, final RuleModel... ruleModels) {
         final MaxRule ruleEntity = new MaxRule(name);
         addSubRules(ruleEntity.getRules(), ruleModels);
 		return addRule(ruleEntity);
     }
 
-    public RuleModel createSubjectRule(String name, Long subjectId, Long subjectCount) {
+    public RuleModel createSubjectRule(final String name, final Long subjectId, final Long subjectCount) {
     	return addSubjectRule(new SubjectRule(name), subjectId, subjectCount);
     }
 
-    public RuleModel createDailyRule(String name, Long subjectId, Long subjectCount) {
+    public RuleModel createDailyRule(final String name, final Long subjectId, final Long subjectCount) {
     	return addSubjectRule(new DailyRule(name), subjectId, subjectCount);
     }
 
-    public RuleModel createDistanceRule(String name, Long subjectId, Long subjectCount, Double distance) {
+    public RuleModel createDistanceRule(final String name, final Long subjectId, final Long subjectCount, final Double distance) {
     	return addDistanceRule(new DistanceRule(name), subjectId, subjectCount, distance);
     }
 
-    public RuleModel createWinterRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createWinterRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addSeasonRule(new WinterRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createSpringRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createSpringRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addSeasonRule(new SpringRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createSummerRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createSummerRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addSeasonRule(new SummerRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createAutumnRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createAutumnRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addSeasonRule(new AutumnRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createMorningRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createMorningRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addDayTimeRule(new MorningRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createAfternoonRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createAfternoonRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addDayTimeRule(new AfternoonRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createEveningRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createEveningRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addDayTimeRule(new EveningRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel createNightRule(String name, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+    public RuleModel createNightRule(final String name, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	return addDayTimeRule(new NightRule(name), subjectId, subjectCount, distance, toEvery);
     }
 
-    public RuleModel saveRule(RuleModel ruleModel) throws RuleNotFoundException, RuleUpdatedException {
+    public RuleModel saveRule(final RuleModel ruleModel) throws RuleNotFoundException, RuleUpdatedException {
         Rule ruleEntity;
-        Long id = ruleModel.getId();
+        final Long id = ruleModel.getId();
         if (id != null) {
-            Optional<Rule> ruleOptional = ruleRepository.findById(id);
+        	final Optional<Rule> ruleOptional = ruleRepository.findById(id);
             if (ruleOptional.isPresent()) {
                 ruleEntity = ruleOptional.get();
                 if (!ruleEntity.getLastUpdated().equals(ruleModel.getLastUpdated())) {
@@ -112,17 +112,17 @@ public class RuleService {
 
     public RuleModel findRule(Long id) {
         RuleModel ruleModel = null;
-        Optional<Rule> ruleEntity = ruleRepository.findById(id);
+        final Optional<Rule> ruleEntity = ruleRepository.findById(id);
         if (ruleEntity.isPresent()) {
-            Rule rule = ruleEntity.get();
+        	final Rule rule = ruleEntity.get();
             ruleModel = assembleRuleModel(rule);
         }
         return ruleModel;
     }
 
-    public RuleModel findByName(String name) {
+    public RuleModel findByName(final String name) {
         RuleModel ruleModel = null;
-        Optional<Rule> ruleEntity = ruleRepository.findByName(name);
+        final Optional<Rule> ruleEntity = ruleRepository.findByName(name);
         if (ruleEntity.isPresent()) {
             Rule rule = ruleEntity.get();
             ruleModel = assembleRuleModel(rule);
@@ -130,28 +130,28 @@ public class RuleService {
         return ruleModel;
     }
 
-    public void deleteRules(Long[] ids) {
+    public void deleteRules(final Long[] ids) {
         for (Long id: ids) {
             ruleRepository.deleteById(id);
         }
     }
 
-	private void addSubRules(final List<Rule> rules, RuleModel... ruleModels) {
+	private void addSubRules(final List<Rule> rules, final RuleModel... ruleModels) {
         for (RuleModel ruleModel : ruleModels) {
-            Optional<Rule> ruleOptional = ruleRepository.findById(ruleModel.getId());
+        	final Optional<Rule> ruleOptional = ruleRepository.findById(ruleModel.getId());
             if (ruleOptional.isPresent()) {
     			rules.add(ruleOptional.get());
             }
 		}
 	}
 
-	private RuleModel addRule(Rule ruleEntity) {
-		Rule rule = ruleRepository.save(ruleEntity);
+	private RuleModel addRule(final Rule ruleEntity) {
+		final Rule rule = ruleRepository.save(ruleEntity);
         return assembleRuleModel(rule);
 	}
 
-	private RuleModel addSubjectRule(SubjectRule ruleEntity, Long subjectId, Long subjectCount) {
-		Optional<Subject> subjectOptional = subjectRepository.findById(subjectId);
+	private RuleModel addSubjectRule(final SubjectRule ruleEntity, final Long subjectId, final Long subjectCount) {
+		final Optional<Subject> subjectOptional = subjectRepository.findById(subjectId);
     	if (subjectOptional.isPresent()) {
     		ruleEntity.setSubject(subjectOptional.get());
     	}
@@ -159,22 +159,22 @@ public class RuleService {
         return addRule(ruleEntity);
 	}
 
-	private RuleModel addDistanceRule(DistanceRule ruleEntity, Long subjectId, Long subjectCount, Double distance) {
+	private RuleModel addDistanceRule(final DistanceRule ruleEntity, final Long subjectId, final Long subjectCount, final Double distance) {
     	ruleEntity.setDistance(distance);
         return addSubjectRule(ruleEntity, subjectId, subjectCount);
 	}
 
-	private RuleModel addSeasonRule(SeasonRule ruleEntity, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+	private RuleModel addSeasonRule(final SeasonRule ruleEntity, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	ruleEntity.setToEvery(toEvery);
         return addDistanceRule(ruleEntity, subjectId, subjectCount, distance);
 	}
 
-	private RuleModel addDayTimeRule(DayTimeRule ruleEntity, Long subjectId, Long subjectCount, Double distance, boolean toEvery) {
+	private RuleModel addDayTimeRule(final DayTimeRule ruleEntity, final Long subjectId, final Long subjectCount, final Double distance, final boolean toEvery) {
     	ruleEntity.setToEvery(toEvery);
         return addDistanceRule(ruleEntity, subjectId, subjectCount, distance);
 	}
 
-	private static RuleModel assembleRuleModel(Rule ruleEntity) {
+	private static RuleModel assembleRuleModel(final Rule ruleEntity) {
         return new RuleModel(ruleEntity.getId(), ruleEntity.getName(), ruleEntity.getCreated(), ruleEntity.getLastUpdated());
     }
 }

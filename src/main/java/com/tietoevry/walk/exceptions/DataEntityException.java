@@ -9,12 +9,12 @@ public class DataEntityException extends Exception {
 
 	private final Long id;
 
-    public DataEntityException(String message) {
+    public DataEntityException(final String message) {
         super(message);
         this.id = -1L;
     }
 
-    public DataEntityException(String message, Long id) {
+    public DataEntityException(final String message, final Long id) {
         super(message + ": id = " + id);
         this.id = id;
     }

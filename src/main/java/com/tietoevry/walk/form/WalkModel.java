@@ -29,25 +29,32 @@ public class WalkModel {
 	public Map<String, Long> getSubjects() {
 		return subjects;
 	}
-	public void setSubjects(Map<String, Long> subjects) {
+	
+	public void setSubjects(final Map<String, Long> subjects) {
 		this.subjects = subjects;
 	}
+	
 	public Double getDistance() {
 		return distance;
 	}
-	public void setDistance(Double distance) {
+	
+	public void setDistance(final Double distance) {
 		this.distance = distance;
 	}
+	
 	public LocalDateTime getStart() {
 		return start;
 	}
-	public void setStart(LocalDateTime start) {
+	
+	public void setStart(final LocalDateTime start) {
 		this.start = start;
 	}
+	
 	public LocalDateTime getFinish() {
 		return finish;
 	}
-	public void setFinish(LocalDateTime finish) {
+	
+	public void setFinish(final LocalDateTime finish) {
 		this.finish = finish;
 	}
 }

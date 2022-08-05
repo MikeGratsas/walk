@@ -13,12 +13,12 @@ public class MorningRule extends DayTimeRule {
 	public MorningRule() {
 	}
 
-	public MorningRule(String name) {
+	public MorningRule(final String name) {
 		super(name);
 	}
 
 	@Override
-	protected boolean overlap(int startHour, int finishHour) {
+	protected boolean overlap(final int startHour, final int finishHour) {
 		return startHour < FINISH_HOUR && finishHour >= START_HOUR;
 	}
 }

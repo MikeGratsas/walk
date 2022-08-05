@@ -42,18 +42,16 @@ public class ItemController {
     @GetMapping("/items/findByName")
     public ResponseEntity<ItemModel> findItemByName(@RequestParam final String name)
     {
-        ItemModel item = itemService.findByName(name);
-        if (item == null)
-        	return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(item);
+        final ItemModel item = itemService.findByName(name);
+		return (item == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok(item);
     }
 
     @GetMapping(path="/items/{itemId}")
-    public ResponseEntity<ItemModel> getItemById(@PathVariable("itemId") final Long id)
+    public ResponseEntity<ItemModel> getItemById(@PathVariable("itemId") final Long itemId)
     {
         ItemModel item;
         try {
-            item = itemService.findItem(id);
+            item = itemService.findItem(itemId);
         }
         catch (ItemNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
@@ -84,21 +82,21 @@ public class ItemController {
     }
 
     @DeleteMapping(path="/items/{itemId}")
-    public ResponseEntity<Long> deleteItemById(@PathVariable("itemId") final Long id)
+    public ResponseEntity<Long> deleteItemById(@PathVariable("itemId") final Long itemId)
     {
 		try {
-	        itemService.deleteItems(new Long[] { id });
+	        itemService.deleteItems(new Long[] { itemId });
 		} catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
 		}
-		return ResponseEntity.ok(id);
+		return ResponseEntity.ok(itemId);
     }
     
     @GetMapping("/items/{itemId}/rules")
-    public ResponseEntity<List<ItemRuleModel>> getItemRuleList(@PathVariable("itemId") final Long id)
+    public ResponseEntity<List<ItemRuleModel>> getItemRuleList(@PathVariable("itemId") final Long itemId)
     {
         try {
-			return ResponseEntity.ok(itemService.listRules(id));
+			return ResponseEntity.ok(itemService.listRules(itemId));
 		}
         catch (ItemNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
@@ -106,10 +104,10 @@ public class ItemController {
     }
 
     @GetMapping("/items/{itemId}/rules/add")
-    public ResponseEntity<ItemRuleModel> addItemRule(@PathVariable("itemId") final Long id, @RequestParam final String rule, @RequestParam final Double quantity)
+    public ResponseEntity<ItemRuleModel> addItemRule(@PathVariable("itemId") final Long itemId, @RequestParam final String rule, @RequestParam final Double quantity)
     {
         try {
-			return ResponseEntity.ok(itemService.addRule(id, rule, quantity));
+			return ResponseEntity.ok(itemService.addRule(itemId, rule, quantity));
 		}
         catch (ItemNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
@@ -120,16 +118,16 @@ public class ItemController {
     }
     
     @DeleteMapping(path="/items/{itemId}/rules/remove")
-    public ResponseEntity<Long> removeItemRule(@PathVariable("itemId") final Long id, @RequestParam final Long itemRuleId)
+    public ResponseEntity<Long> removeItemRule(@PathVariable("itemId") final Long itemId, @RequestParam final Long itemRuleId)
     {
         try {
-			itemService.removeRule(id, itemRuleId);
+			itemService.removeRule(itemId, itemRuleId);
 		} catch (ItemNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
 		} catch (ItemRuleNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getLocalizedMessage(), e);
 		}
-		return ResponseEntity.ok(id);
+		return ResponseEntity.ok(itemId);
     }
     
 }

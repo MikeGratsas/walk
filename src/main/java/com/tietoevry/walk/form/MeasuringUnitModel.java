@@ -20,12 +20,12 @@ public class MeasuringUnitModel implements Serializable {
     public MeasuringUnitModel() {
     }
 
-    public MeasuringUnitModel(String name, String description) {
+    public MeasuringUnitModel(final String name, final String description) {
         this.name = name;
         this.description = description;
     }
 
-    public MeasuringUnitModel(Long id, String name, String description) {
+    public MeasuringUnitModel(final Long id, final String name, final String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -35,7 +35,7 @@ public class MeasuringUnitModel implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -43,7 +43,7 @@ public class MeasuringUnitModel implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -51,7 +51,7 @@ public class MeasuringUnitModel implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }

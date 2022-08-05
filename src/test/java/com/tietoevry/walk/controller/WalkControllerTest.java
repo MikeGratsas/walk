@@ -39,7 +39,7 @@ class WalkControllerTest {
 		};
 
 		HttpEntity<Object> walkEntity = getHttpEntity("{\"distance\": 100, \"start\": \"2022-07-31T08:38:50\", \"finish\": \"2022-08-01T21:34:00\" }");
-		ResponseEntity<String> response = template.postForEntity(PREPARE_ENDPOINT, walkEntity, String.class);
+		final ResponseEntity<String> response = template.postForEntity(PREPARE_ENDPOINT, walkEntity, String.class);
 		Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 		Assertions.assertFalse(response.getBody().isEmpty());
 

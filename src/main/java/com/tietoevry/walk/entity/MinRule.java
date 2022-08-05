@@ -16,13 +16,13 @@ import com.tietoevry.walk.form.WalkModel;
 public class MinRule extends Rule {
 
 	@OneToMany(orphanRemoval = true)
-	@JoinTable(name="min_rules")
+	@JoinTable(name="min_rule")
 	private List<Rule> rules = new ArrayList<>();
 
 	public MinRule() {
 	}
 
-    public MinRule(String name) {
+    public MinRule(final String name) {
         super(name);
     }
 
@@ -30,12 +30,12 @@ public class MinRule extends Rule {
 		return rules;
 	}
 
-	public void setRules(List<Rule> rules) {
+	public void setRules(final List<Rule> rules) {
 		this.rules = rules;
 	}
 	
 	@Override
-	public long check(WalkModel walk) {		
+	public long check(final WalkModel walk) {		
 		final OptionalLong result = rules.stream().mapToLong(r -> r.check(walk)).min();
 		return result.orElse(0L);
 	}

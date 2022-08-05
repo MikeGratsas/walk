@@ -35,7 +35,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name) {
+    public Item(final String name) {
         this.name = name;
     }
 
@@ -43,7 +43,7 @@ public class Item {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -51,7 +51,7 @@ public class Item {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -59,7 +59,7 @@ public class Item {
         return measuringUnit;
     }
 
-    public void setMeasuringUnit(MeasuringUnit measuringUnit) {
+    public void setMeasuringUnit(final MeasuringUnit measuringUnit) {
         this.measuringUnit = measuringUnit;
     }
 
@@ -67,7 +67,7 @@ public class Item {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(final LocalDateTime created) {
         this.created = created;
     }
 
@@ -75,16 +75,16 @@ public class Item {
         return lastUpdated;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
+    public void setLastUpdated(final LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
-    public void addRule(RuleItem ruleItem) {
+    public void addRule(final RuleItem ruleItem) {
     	ruleItems.add(ruleItem);
     	ruleItem.setItem(this);
 	}
 
-	public void removeRule(RuleItem ruleItem) {
+	public void removeRule(final RuleItem ruleItem) {
 		ruleItems.remove(ruleItem);
 		ruleItem.setItem(null);
 	}
@@ -93,7 +93,7 @@ public class Item {
 		return ruleItems;
 	}
 
-	public void setItemRules(List<RuleItem> items) {
+	public void setItemRules(final List<RuleItem> items) {
 		this.ruleItems = items;
 	}
 

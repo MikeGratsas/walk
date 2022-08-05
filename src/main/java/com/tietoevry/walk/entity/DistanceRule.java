@@ -16,7 +16,7 @@ public class DistanceRule extends SubjectRule {
 	public DistanceRule() {
 	}
 
-    public DistanceRule(String name) {
+    public DistanceRule(final String name) {
         super(name);
     }
 
@@ -24,12 +24,12 @@ public class DistanceRule extends SubjectRule {
 		return distance;
 	}
 
-	public void setDistance(Double distance) {
+	public void setDistance(final Double distance) {
 		this.distance = distance;
 	}
 	
 	@Override
-	public long check(WalkModel walk) {
+	public long check(final WalkModel walk) {
 		if (walk == null)
 			return 0;
 		final Double walkDistance = walk.getDistance();

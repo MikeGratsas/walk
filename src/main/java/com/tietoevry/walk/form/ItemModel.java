@@ -29,18 +29,18 @@ public class ItemModel implements Serializable {
     public ItemModel() {
     }
 
-    public ItemModel(String name, String measuringUnit) {
+    public ItemModel(final String name, final String measuringUnit) {
         this.name = name;
         this.measuringUnit = measuringUnit;
     }
 
-    public ItemModel(Long id, String name, String measuringUnit) {
+    public ItemModel(final Long id, final String name, final String measuringUnit) {
         this.id = id;
         this.name = name;
         this.measuringUnit = measuringUnit;
     }
 
-    public ItemModel(Long id, String name, String measuringUnit, LocalDateTime created, LocalDateTime lastUpdated) {
+    public ItemModel(final Long id, final String name, final String measuringUnit, final LocalDateTime created, final LocalDateTime lastUpdated) {
         this.id = id;
         this.name = name;
         this.measuringUnit = measuringUnit;
@@ -52,7 +52,7 @@ public class ItemModel implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -60,7 +60,7 @@ public class ItemModel implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -68,7 +68,7 @@ public class ItemModel implements Serializable {
 		return measuringUnit;
 	}
 
-	public void setMeasuringUnit(String measuringUnit) {
+	public void setMeasuringUnit(final String measuringUnit) {
 		this.measuringUnit = measuringUnit;
 	}
 
@@ -76,7 +76,7 @@ public class ItemModel implements Serializable {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -84,7 +84,7 @@ public class ItemModel implements Serializable {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
+	public void setLastUpdated(final LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 

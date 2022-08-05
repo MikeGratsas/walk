@@ -26,13 +26,13 @@ public class ItemRuleModel implements Serializable {
     public ItemRuleModel() {
     }
 
-    public ItemRuleModel(Long id, String rule, Double quantity) {
+    public ItemRuleModel(final Long id, final String rule, final Double quantity) {
         this.id = id;
         this.rule = rule;
         this.quantity = quantity;
     }
 
-    public ItemRuleModel(Long id, String rule, Double quantity, LocalDateTime created, LocalDateTime lastUpdated) {
+    public ItemRuleModel(final Long id, final String rule, final Double quantity, final LocalDateTime created, final LocalDateTime lastUpdated) {
         this.id = id;
         this.rule = rule;
         this.quantity = quantity;
@@ -44,7 +44,7 @@ public class ItemRuleModel implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -52,7 +52,7 @@ public class ItemRuleModel implements Serializable {
 		return rule;
 	}
 
-	public void setRule(String rule) {
+	public void setRule(final String rule) {
 		this.rule = rule;
 	}
 
@@ -60,7 +60,7 @@ public class ItemRuleModel implements Serializable {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(final Double quantity) {
 		this.quantity = quantity;
 	}
 
@@ -68,7 +68,7 @@ public class ItemRuleModel implements Serializable {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -76,7 +76,7 @@ public class ItemRuleModel implements Serializable {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
+	public void setLastUpdated(final LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 }

@@ -25,12 +25,12 @@ public class RuleModel implements Serializable {
     public RuleModel() {
     }
 
-    public RuleModel(Long id, String name) {
+    public RuleModel(final Long id, final String name) {
         this.id = id;
         this.name = name;
     }
 
-    public RuleModel(Long id, String name, LocalDateTime created, LocalDateTime lastUpdated) {
+    public RuleModel(final Long id, final String name, final LocalDateTime created, final LocalDateTime lastUpdated) {
         this.id = id;
         this.name = name;
         this.created = created;
@@ -41,7 +41,7 @@ public class RuleModel implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -49,7 +49,7 @@ public class RuleModel implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -57,7 +57,7 @@ public class RuleModel implements Serializable {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -65,7 +65,7 @@ public class RuleModel implements Serializable {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
+	public void setLastUpdated(final LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 }

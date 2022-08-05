@@ -28,12 +28,12 @@ public class WalkService {
     private RuleRepository ruleRepository;
 
     public List<WalkItemModel> prepare(final WalkModel walk) {
-		List<WalkItemModel> walkItems = StreamSupport.stream(ruleRepository.findAll().spliterator(), false).flatMap(r -> processRule(r, walk).stream()).collect(Collectors.groupingBy(ItemQuantityModel::getItem, Collectors.summingDouble(ItemQuantityModel::getQuantity))).entrySet().stream().map(WalkService::assembleWalkItemModel).sorted(Comparator.comparingLong(WalkItemModel::getId)).collect(Collectors.toList());
+    	final List<WalkItemModel> walkItems = StreamSupport.stream(ruleRepository.findAll().spliterator(), false).flatMap(r -> processRule(r, walk).stream()).collect(Collectors.groupingBy(ItemQuantityModel::getItem, Collectors.summingDouble(ItemQuantityModel::getQuantity))).entrySet().stream().map(WalkService::assembleWalkItemModel).sorted(Comparator.comparingLong(WalkItemModel::getId)).collect(Collectors.toList());
 		return walkItems; 
 	}
     
     private static List<ItemQuantityModel> processRule(final Rule ruleEntity, final WalkModel walk) {
-    	long count = ruleEntity.check(walk);
+    	final long count = ruleEntity.check(walk);
     	return (count > 0)? ruleEntity.getItems().stream().map(ri -> assembleItemQuantityModel(ri, count)).collect(Collectors.toList()): Collections.emptyList();
     }
     
@@ -43,7 +43,7 @@ public class WalkService {
     
     private static ItemModel assembleItemModel(final Item itemEntity) {
         MeasuringUnitModel measuringUnitModel = null;
-        MeasuringUnit m = itemEntity.getMeasuringUnit();
+        final MeasuringUnit m = itemEntity.getMeasuringUnit();
         if (m != null) {
             measuringUnitModel = new MeasuringUnitModel(m.getId(), m.getName(), m.getDescription());
         }

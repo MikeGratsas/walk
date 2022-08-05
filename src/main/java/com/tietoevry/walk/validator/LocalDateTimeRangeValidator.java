@@ -17,10 +17,10 @@ public class LocalDateTimeRangeValidator implements ConstraintValidator<LocalDat
 
     @Override
     public boolean isValid(final Object obj, final ConstraintValidatorContext context) {
-        BeanWrapper wrapper = new BeanWrapperImpl(obj);
-        LocalDateTime start = (LocalDateTime) wrapper.getPropertyValue("start");
-        LocalDateTime finish = (LocalDateTime) wrapper.getPropertyValue("finish");
-        boolean isInvalid = start == null || finish == null || finish.isBefore(start);
+    	final BeanWrapper wrapper = new BeanWrapperImpl(obj);
+    	final LocalDateTime start = (LocalDateTime) wrapper.getPropertyValue("start");
+    	final LocalDateTime finish = (LocalDateTime) wrapper.getPropertyValue("finish");
+    	final boolean isInvalid = start == null || finish == null || finish.isBefore(start);
         if (isInvalid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(

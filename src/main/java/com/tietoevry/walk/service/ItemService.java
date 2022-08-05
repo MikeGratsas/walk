@@ -43,7 +43,7 @@ public class ItemService {
         return itemList.stream().map(ItemService::assembleItemModel).collect(Collectors.toList());
     }
 
-    public ItemModel createItem(ItemModel itemModel) {
+    public ItemModel createItem(final ItemModel itemModel) {
     	if (itemModel == null)
     		throw new IllegalArgumentException("itemModel");
         final Item itemEntity = new Item(itemModel.getName());
@@ -56,13 +56,13 @@ public class ItemService {
         return assembleItemModel(item);
     }
 
-    public ItemModel saveItem(ItemModel itemModel) throws ItemNotFoundException, ItemUpdatedException {
+    public ItemModel saveItem(final ItemModel itemModel) throws ItemNotFoundException, ItemUpdatedException {
     	if (itemModel == null)
     		throw new IllegalArgumentException("itemModel");
         Item itemEntity;
-        Long id = itemModel.getId();
+        final Long id = itemModel.getId();
         if (id != null) {
-            Optional<Item> itemOptional = itemRepository.findById(id);
+        	final Optional<Item> itemOptional = itemRepository.findById(id);
             if (itemOptional.isPresent()) {
                 itemEntity = itemOptional.get();
                 if (!itemEntity.getLastUpdated().equals(itemModel.getLastUpdated())) {
@@ -107,7 +107,7 @@ public class ItemService {
         return itemModel;
     }
 
-    public void deleteItems(Long[] ids) {
+    public void deleteItems(final Long[] ids) {
         for (Long id: ids) {
             itemRepository.deleteById(id);
         }
@@ -119,7 +119,7 @@ public class ItemService {
     }
 
     @Transactional
-    public List<ItemRuleModel> listRules(Long id) throws ItemNotFoundException {
+    public List<ItemRuleModel> listRules(final Long id) throws ItemNotFoundException {
     	final Optional<Item> itemEntity = itemRepository.findById(id);
         if (!itemEntity.isPresent()) {
             throw new ItemNotFoundException(id);
@@ -130,7 +130,7 @@ public class ItemService {
     }
 
     @Transactional
-    public ItemRuleModel addRule(Long id, String ruleName, Double quantity) throws ItemNotFoundException, RuleNotFoundException {
+    public ItemRuleModel addRule(final Long id, final String ruleName, final Double quantity) throws ItemNotFoundException, RuleNotFoundException {
     	final Optional<Item> itemOptional = itemRepository.findById(id);
         if (!itemOptional.isPresent()) {
             throw new ItemNotFoundException(id);
@@ -143,13 +143,13 @@ public class ItemService {
         final Rule ruleEntity = ruleOptional.get();                
         final RuleItem ruleItem = new RuleItem(ruleEntity, quantity);
         itemEntity.addRule(ruleItem);
-        Item item = itemRepository.save(itemEntity);
+        final Item item = itemRepository.save(itemEntity);
         final Optional<RuleItem> ruleItemOptional = item.getItemRules().stream().filter(ir -> ruleEntity.equals(ir.getRule())).findFirst();
         return ruleItemOptional.isPresent()? assembleItemRuleModel(ruleItemOptional.get()): null;
     }
 
     @Transactional
-    public void removeRule(Long id, Long itemRuleId) throws ItemNotFoundException, ItemRuleNotFoundException {
+    public void removeRule(final Long id, final Long itemRuleId) throws ItemNotFoundException, ItemRuleNotFoundException {
     	final Optional<Item> itemEntity = itemRepository.findById(id);
         if (!itemEntity.isPresent()) {
             throw new ItemNotFoundException(id);
@@ -166,9 +166,9 @@ public class ItemService {
     	return new ItemRuleModel(ruleItemEntity.getId(), ruleItemEntity.getRule().getName(), ruleItemEntity.getQuantity(), ruleItemEntity.getCreated(), ruleItemEntity.getLastUpdated());
     }
     
-    private static ItemModel assembleItemModel(Item itemEntity) {
+    private static ItemModel assembleItemModel(final Item itemEntity) {
         MeasuringUnitModel measuringUnitModel = null;
-        MeasuringUnit m = itemEntity.getMeasuringUnit();
+        final MeasuringUnit m = itemEntity.getMeasuringUnit();
         if (m != null) {
             measuringUnitModel = new MeasuringUnitModel(m.getId(), m.getName(), m.getDescription());
         }

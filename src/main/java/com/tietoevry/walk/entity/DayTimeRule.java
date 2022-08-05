@@ -18,7 +18,7 @@ public abstract class DayTimeRule extends DistanceRule {
 	public DayTimeRule() {
 	}
 
-	public DayTimeRule(String name) {
+	public DayTimeRule(final String name) {
 		super(name);
 	}
 
@@ -26,12 +26,12 @@ public abstract class DayTimeRule extends DistanceRule {
 		return toEvery;
 	}
 
-	public void setToEvery(boolean toEvery) {
+	public void setToEvery(final boolean toEvery) {
 		this.toEvery = toEvery;
 	}
 
 	@Override
-	public long check(WalkModel walk) {
+	public long check(final WalkModel walk) {
 		if (walk == null)
 			return 0;
 		final LocalDateTime start = walk.getStart();

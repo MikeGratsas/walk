@@ -33,7 +33,7 @@ public class RuleItem {
     public RuleItem() {
     }
 
-    public RuleItem(Rule rule, Double quantity) {
+    public RuleItem(final Rule rule, final Double quantity) {
         this.rule = rule;
         this.quantity = quantity;
     }
@@ -42,7 +42,7 @@ public class RuleItem {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -50,7 +50,7 @@ public class RuleItem {
 		return rule;
 	}
 
-	public void setRule(Rule rule) {
+	public void setRule(final Rule rule) {
 		this.rule = rule;
 	}
 
@@ -58,7 +58,7 @@ public class RuleItem {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(final Item item) {
 		this.item = item;
 	}
 
@@ -66,7 +66,7 @@ public class RuleItem {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(final Double quantity) {
 		this.quantity = quantity;
 	}
 
@@ -74,7 +74,7 @@ public class RuleItem {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(final LocalDateTime created) {
         this.created = created;
     }
 
@@ -82,7 +82,7 @@ public class RuleItem {
         return lastUpdated;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
+    public void setLastUpdated(final LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }

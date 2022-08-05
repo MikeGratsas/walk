@@ -7,7 +7,7 @@ public class ItemNotFoundException extends DataEntityException {
 	 */
 	private static final long serialVersionUID = -2982572866191487755L;
 
-	public ItemNotFoundException(Long id) {
+	public ItemNotFoundException(final Long id) {
         super("Item not found", id);
     }
 }
