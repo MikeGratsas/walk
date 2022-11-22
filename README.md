@@ -40,3 +40,4 @@ http://localhost:8080/api/prepare
 
 The rules are preconfigured for the application, but can be modified.
 
+The application is deployed to [Render](https://sharp-img-viewer.onrender.com/)
