@@ -1,6 +1,4 @@
 FROM eclipse-temurin:17-jdk-alpine as build
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
 WORKDIR /workspace/app
 
 COPY mvnw .
@@ -13,6 +11,8 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
